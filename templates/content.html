@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload Document</title>
+    <style>
+        h1.content-title {
+            /* Your specific styles for h1 with class "newclass" */
+            margin-right:100px;
+            width: 500px;
+            /* background-color: black; */
+            color: rgb(0, 0, 0);
+            font-size: 42px;
+            border-radius:10px
+            /* Add any other styles you want */
+        }
+        body {
+            background-color: aquamarine;
+            font-family: Arial, sans-serif;
+            padding-top: 50px; /* Adjust as needed for spacing from the top */
+        }
+
+        .container {
+            width: 500px;
+            margin-top: 250px;
+            margin-left: 700px;
+        }
+
+        .buttons button {
+            /* display: block; */
+            width: 80%;
+            padding: 10px;
+            margin-top: 10px;
+            margin-left: 20px;
+            cursor: pointer;
+            background-color: #f0f0f0;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+        }
+        .buttons button:hover {
+            /* hover styles */
+            background-color: rgb(112, 231, 205);/* slightly darker background */
+            color: rgb(0, 0, 0);
+            border-color: #333632;        /* slightly darker border */
+        }
+        #loadingMessage {
+            /* Styles to center the loading message on the page */
+             /* or absolute */
+            margin-top: 100px;
+            margin-right: 50px;
+            /* top: 50%;
+            left: 50%; */
+            
+            /* More styles for visibility */
+            font-size: 24px;
+            color: rgb(0, 0, 0);
+            z-index: 1000;
+        }
+
+        #resourceType {
+            padding: 10px;
+            margin-top: 10px;
+            margin-bottom: 10px;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+            font-size: 16px;
+            background-color: white;
+            cursor: pointer;
+        }
+
+        #resourceType:hover {
+            background-color: #f2f2f2;
+        }
+
+        #resourceType:focus {
+            outline: none; /* Removes the default focus outline */
+            border: 1px solid #aaa;
+            box-shadow: 0px 0px 8px #aaa; /* Adds a subtle shadow to indicate focus */
+        }
+
+    </style>
+
+</head>
+<body>
+    <div>
+    </div>
+    <div class="container">
+        <select id="resourceType" onchange="redirectToResource()">
+            <option value="1">Generate Detailed Resources 📔</option>
+            <option value="2">Generate "Tomorrow is Exam Resources" 🗿</option>
+        </select>
+        <div id="loadingMessage" style="display:none;">
+            Loading...
+        </div>
+        <h1 class="content-title">Generate the content!</h1>
+        <div id=hidden-div class="buttons">
+            <button onclick="generateResource('/mcq', '{{ filename }}')">Generate MCQ</button>
+            <button onclick="generateResource('/flashcards', '{{ filename }}')">Generate FlashCards</button>
+            <button onclick="generateResource('/questionbank', '{{ filename }}')">Generate Question Bank</button>
+        </div>
+    </div>
+
+    <script>
+        function displayLoadingMessage() {
+            document.getElementById('loadingMessage').style.display = 'block';
+        }
+    
+        function generateResource(path, filename) {
+            displayLoadingMessage();
+            // Get the selected value from the dropdown
+            var resourceType = document.getElementById('resourceType').value;
+            
+            // Redirect with the selected resource type and the filename
+            window.location.href = `${path}/${filename}?resourceType=${resourceType}`;
+        }
+    </script>
+</body>
+</html>

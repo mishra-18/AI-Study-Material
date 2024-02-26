@@ -1,0 +1,98 @@
+body {
+    background-color: aquamarine;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding-top: 50px; /* Adjust as needed for spacing from the top */
+    text-align: center;
+}
+
+.container {
+    width: 100%;
+    max-width: 400px; /* Adjust as needed for your design */
+    margin: auto;
+}
+
+.leftcontainer {
+    width: 25%; 
+    /* min-height: 1vh; */
+    background-image: url("/home/kian/ncert/APP/templates/image.png"); 
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+input[type=file]{
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+}
+
+input[type=submit] {
+    width: 30%;
+    padding:20px;
+    background-color: #5cb85c;
+    color: white;
+    border: 1px solid #4cae4c;
+    cursor: pointer;
+    border-radius: 10px;
+}
+
+input[type=file]:hover, input[type=submit]:hover {
+    border-color: #7e1d1d;
+}
+/* Hide the file input */
+input[type=file] {
+    width: 0.1px;
+    height: 0.1px;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    z-index: -1;
+}
+
+/* Style the file input label */
+label[for=file] {
+    width: 300px;
+    font-size: 16px;
+    padding: 10px 20px;
+    background-color: #aed69d00;
+    color: rgb(51, 45, 45);
+    border: 2px solid #adff2f;
+    border-color: black;
+    border-radius: 2px;
+    margin-top: 10px; /* Add margin to separate from title */
+    cursor: pointer;
+    display: inline-block;
+
+    transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+}
+label[for=file]:hover {
+    background-color: rgb(126, 245, 136); /*Lighter background on hover */
+    color: #000; /* Change text color on hover if needed */
+    border-color: #7e1d1d; /* Change border color on hover */
+}
+
+.buttons button {
+    /* display: block; */
+    /* width: 80%; */
+    padding: 10px;
+    margin-top: 10px;
+    cursor: pointer;
+    background-color: #f0f0f0;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.buttons button:hover {
+    background-color: #e9e9e9;
+}
+
+.hidden-div {
+    display: None;
+}
+h1 {
+    background-color: black;
+    color: white;
+    margin-top: 200px;
+    margin-bottom: 20px;
+    border-radius:10px
+}

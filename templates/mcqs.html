@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Multiple Choice Quiz</title>
+<style>
+    /* Your styles here */
+    .correct {
+        color: green;
+    }
+    .incorrect {
+        color: red;
+    }
+    
+    body {
+        background-color: rgb(194, 177, 194);
+    }
+    button {
+        background-color: #4CAF50; /* Green background */
+        color: white; /* White text color */
+        padding: 8px 8px; /* Top and bottom padding 14px, right and left padding 20px */
+        margin: 8px 0; /* Margin top and bottom 8px */
+        border: none; /* No border */
+        border-radius: 4px; /* Rounded corners */
+        cursor: pointer; /* Pointer/hand icon when mouse hovers over button */
+        width: 100px; /* Width of the button - you can specify this as a percentage or pixel value */
+        font-size: 16px; /* Size of the text in the button */
+        display: block; /* Make the button a block element to occupy full width of parent */
+    }
+
+    /* Add a dark green color to the button's text when it is hovered over */
+    button:hover {
+        background-color: #45a049;
+    }
+    .feedback-form {
+        margin-left: 750px;
+    }
+    .feedback-form a {
+            width: 0.1px;
+            height: 0.1px;
+            opacity: 0;
+            overflow: hidden;
+            position: absolute;
+            margin-left: 60px;
+            z-index: -1;
+        }
+        .feedback-form h2 {
+            padding: 2%;
+            font-size: 16px;
+            width: 20%;
+            margin-left:20px;
+            cursor: pointer;
+            background-color: rgb(67, 78, 71);
+            color: rgb(255, 255, 255);
+            border-radius: 5px;
+            text-align: center;
+        }
+        .feedback-form h2:hover {
+            background-color:gray ;
+        }
+</style>
+
+<script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+</head>
+<body>
+
+<div id="app">
+    <div v-for="(mcq, questionIndex) in mcqs" :key="mcq.question" class="question">
+        <p>Question [[ questionIndex + 1 ]]: [[ mcq.question ]]</p>
+        <ol type="A">
+            <li v-for="(option, optionIndex) in mcq.options" :key="optionIndex">
+                <input type="radio" :name="'question' + questionIndex" :value="option" v-model="mcq.selectedAnswer">
+                [[ option ]]
+            </li>
+        </ol>
+        <button @click="submitAnswer(mcq, questionIndex)">Submit</button>
+        <div v-if="mcq.submitted">
+            <p :class="mcq.correct ? 'correct' : 'incorrect'">
+                [[ mcq.correct ? 'Correct!' : 'Incorrect. The correct answer is: ' + mcq.answer ]]
+            </p>
+        </div>
+    </div>
+</div>
+<div class="feedback-form">
+    <br>
+    <h3>Did you Liked the Generated Content?</h3>
+    <h2 href="#" id="sendMail" class="email-button">Give Your Feedback</h3>
+    <a href="#" id="sendMail" class="email-button">Send Your Feedback here</a><br>
+</div>
+
+<script>
+    document.getElementById('sendMail').addEventListener('click', function() {
+        var subject = encodeURIComponent("User Feedback: MCQs");
+        var emailBody = encodeURIComponent("Hello Kian,\n\nI would like to give the following feedback:\n\n[Please add your feedback here]\n\nBest regards,");
+        window.location.href = "mailto:kianindeed@email.com?subject=" + subject + "&body=" + emailBody;
+    });
+</script>
+<script>
+new Vue({
+    el: '#app',
+    data: {
+        // mcqs will be populated from the Flask context
+        mcqs: {{ mcqs | tojson | safe }}
+    },
+    delimiters: ['[[', ']]'],
+    methods: {
+        submitAnswer(mcq, questionIndex) {
+            Vue.set(this.mcqs, questionIndex, {
+                ...mcq,
+                correct: mcq.selectedAnswer === mcq.answer,
+                submitted: true
+            });
+        }
+    }
+});
+</script>
+</body>
+</html>

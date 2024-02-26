@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Q&A Flashcards</title>
+    <style>
+        body {
+            background-color: rgb(183, 243, 219);
+        }
+        .flashcard {
+            margin: 1em;
+            padding: 1em;
+            background-color: #b4b6b2;
+            border-radius: 8px;
+        }
+
+        .question,
+        .answer {
+            padding: 0.5em 0;
+        }
+
+        .container {
+            width: 100%;
+            margin: auto;
+            display: flex;
+            flex-direction: column;
+        }
+        .a {
+            font-size: 16px;
+            padding: 10px;
+            background-color: rgb(0, 0, 0);
+        }
+        .feedback-form {
+           margin-left: 750px;
+        }
+
+        .feedback-form a {
+            width: 0.1px;
+            height: 0.1px;
+            opacity: 0;
+            overflow: hidden;
+            position: absolute;
+            margin-left: 60px;
+            z-index: -1;
+        }
+        .feedback-form h2 {
+            padding: 2%;
+            font-size: 16px;
+            width: 20%;
+            margin-left:20px;
+            cursor: pointer;
+            background-color: rgb(67, 78, 71);
+            color: rgb(255, 255, 255);
+            border-radius: 5px;
+            text-align: center;
+        }
+        .feedback-form h2:hover {
+            background-color:gray ;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        {% for QnA in QnAs %}
+            <div class="flashcard">
+                <div class="question">
+                    <strong>Question:</strong> {{ QnA["question"] }}
+                </div>
+                <div class="answer">
+                    <strong>Answer:</strong> {{ QnA["answer"] }}
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+    <div class="feedback-form">
+        <br>
+        <h3>Did you Liked the Generated Content?</h3>
+        <h2 href="#" id="sendMail" class="email-button">Give Your Feedback</h3>
+        <a href="#" id="sendMail" class="email-button">Send Your Feedback here</a><br>
+    </div>
+    
+    <script>
+        document.getElementById('sendMail').addEventListener('click', function() {
+            var subject = encodeURIComponent("User Feedback: Question Banks");
+            var emailBody = encodeURIComponent("Hello Kian,\n\nI would like to give the following feedback:\n\n[Please add your feedback here]\n\nBest regards,");
+            window.location.href = "mailto:kianindeed@email.com?subject=" + subject + "&body=" + emailBody;
+        });
+    </script>
+    <script>
+        new Vue({
+            el: '#app',
+            delimiters: ['[[', ']]'],
+            data: {
+                // mcqs will be populated from the Flask context
+                QnAs: {{ QnAs | tojson | safe }}
+            }
+        });
+        </script>
+</body>
+</html>
