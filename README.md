@@ -19,4 +19,6 @@ pip install -r requirements.txt
 flask run
 ```
 
+![Screenshot from 2024-02-26 15-48-59](https://github.com/mishra-18/AI-Study-Material/assets/155224614/d3628b71-95fe-4a9b-a3c1-bf179b584571)
+
 ![Screenshot from 2024-02-26 17-14-11](https://github.com/mishra-18/AI-Study-Material/assets/155224614/4146bc29-48c6-4f0d-a9c0-92d22611716c)
