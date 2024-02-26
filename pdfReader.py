@@ -15,7 +15,7 @@ openai.api_key = "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"
 
 
 def FlashCards(pdf, resourceType=1, depth=10):
-    text = extract_text_from_pdf(pdf)
+    text = extract_text_from_pdf(pdf)[:10000]
 
 
     if resourceType == 1:
@@ -80,7 +80,7 @@ def FlashCards(pdf, resourceType=1, depth=10):
     return flashcards
 # FlashCards(pdf="kebo101.pdf")
 def Quiz(pdf):
-    text = extract_text_from_pdf(pdf)
+    text = extract_text_from_pdf(pdf)[:10000]
     
     quiz = openai.ChatCompletion.create(
         model="gpt-3.5-turbo",
@@ -131,7 +131,7 @@ def Quiz(pdf):
 
 # Quiz(pdf="kesp108.pdf")
 def QuestionBank(pdf, resourceType):
-    text = extract_text_from_pdf(pdf)
+    text = extract_text_from_pdf(pdf)[:10000]
     
     if resourceType == 1:
         print("W")
