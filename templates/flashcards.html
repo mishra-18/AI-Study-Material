@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <title>Flashcards and MCQs</title>
     
-    <!-- Adding inline CSS for demonstration purposes -->
     <style>
 
         .body {
@@ -25,16 +24,16 @@
         }
 
         .flashcard {
-            flex: 0 1 calc(33.333% ); /* Allocate width for three cards per row, minus the gap */
+            flex: 0 1 calc(33.333% ); 
             display: flex;
             flex-direction: column;
             padding: 20px;
-            background-color: rgb(127, 255, 223); /* Your chosen background color */
-            border-radius: 10px; /* Optional: rounded corners */
-            box-shadow: 0 2px 5px rgba(177, 166, 14, 0.2); /* Optional: some shadow for depth */
-            justify-content: center; /* Center content vertically */
-            align-items: center; /* Center content horizontally */
-            height: 200px; /* Fixed height, or you could use min-height for variable content */
+            background-color: rgb(127, 255, 223); 
+            border-radius: 10px; 
+            box-shadow: 0 2px 5px rgba(177, 166, 14, 0.2); 
+            justify-content: center; 
+            align-items: center; 
+            height: 200px; 
         }
 
         .flashcard p,
@@ -45,13 +44,13 @@
         
         @media (max-width: 768px) {
             .flashcard {
-                flex: 0 1 calc(50% ); /* 2 cards per row on smaller screens */
+                flex: 0 1 calc(50% ); 
             }
         }
         
         @media (max-width: 480px) {
             .flashcard {
-                flex: 0 1 100%; /* 1 card per row on very small screens */
+                flex: 0 1 100%;
             }
         }
 
