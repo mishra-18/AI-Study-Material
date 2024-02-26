@@ -2,63 +2,40 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Flashcards and MCQs</title>
-    
-    <!-- Adding inline CSS for demonstration purposes -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Q&A Flashcards</title>
     <style>
-
-        .body {
-            background-color: rgb(163, 255, 127);
+        body {
+            background-color: rgb(183, 243, 219);
         }
-        #app {
-            max-width: 1200px;
-            margin: auto;
-            padding: 20px;
-            background-color: rgb(255, 255, 255);
-        }
-
-        .flashcards-container {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center; /* This centers the cards in the row */
-            gap: 20px; /* This adds space between the cards */
-        }
-
         .flashcard {
-            flex: 0 1 calc(33.333% ); /* Allocate width for three cards per row, minus the gap */
+            margin: 1em;
+            padding: 1em;
+            background-color: #b4b6b2;
+            border-radius: 8px;
+        }
+
+        .question,
+        .answer {
+            padding: 0.5em 0;
+        }
+
+        .container {
+            width: 100%;
+            margin: auto;
             display: flex;
             flex-direction: column;
-            padding: 20px;
-            background-color: rgb(127, 255, 223); /* Your chosen background color */
-            border-radius: 10px; /* Optional: rounded corners */
-            box-shadow: 0 2px 5px rgba(177, 166, 14, 0.2); /* Optional: some shadow for depth */
-            justify-content: center; /* Center content vertically */
-            align-items: center; /* Center content horizontally */
-            height: 200px; /* Fixed height, or you could use min-height for variable content */
         }
-
-        .flashcard p,
-        .flashcard ul {
-            width: 100%; /* Make sure the content fits the card */
-            text-align: center; /* Center the text */
+        .a {
+            font-size: 16px;
+            padding: 10px;
+            background-color: rgb(0, 0, 0);
         }
-        
-        @media (max-width: 768px) {
-            .flashcard {
-                flex: 0 1 calc(50% ); /* 2 cards per row on smaller screens */
-            }
-        }
-        
-        @media (max-width: 480px) {
-            .flashcard {
-                flex: 0 1 100%; /* 1 card per row on very small screens */
-            }
-        }
-
         .feedback-form {
-            margin:auto;
-            margin-left: 750px;
+           margin:auto;
+           margin-left: 750px;
         }
+
         .feedback-form a {
             width: 0.1px;
             height: 0.1px;
@@ -72,7 +49,7 @@
             padding: 2%;
             font-size: 16px;
             width: 20%;
-            margin-left:30px;
+            margin-left:20px;
             cursor: pointer;
             background-color: rgb(67, 78, 71);
             color: rgb(255, 255, 255);
@@ -83,24 +60,19 @@
             background-color:gray ;
         }
     </style>
-    
-    <!-- Vue.js CDN for Development -->
-    <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
 </head>
 <body>
-
-    <!-- Vue.js will hook into this div -->
-    <div id="app">
-        <h2>Flashcards</h2>
-        <div class="flashcards-container">
-            <!-- Vue.js rendering loop with custom delimiters -->
-            <div v-for="card in flashcards" :key="card.title" class="flashcard">
-                <p v-text="card.title" style="font-weight: bold;"></p>
-                <ul>
-                    <li v-for="content in card.content" :key="content" v-text="content"></li>
-                </ul>
+    <div class="container">
+        {% for QnA in QnAs %}
+            <div class="flashcard">
+                <div class="question">
+                    <strong>Question:</strong> {{ QnA["question"] }}
+                </div>
+                <div class="answer">
+                    <strong>Answer:</strong> {{ QnA["answer"] }}
+                </div>
             </div>
-        </div>
+        {% endfor %}
     </div>
     <div class="feedback-form">
         <br>
@@ -111,23 +83,20 @@
     
     <script>
         document.getElementById('sendMail').addEventListener('click', function() {
-            var subject = encodeURIComponent("User Feedback: Flash Cards");
+            var subject = encodeURIComponent("User Feedback: Question Banks");
             var emailBody = encodeURIComponent("Hello Kian,\n\nI would like to give the following feedback:\n\n[Please add your feedback here]\n\nBest regards,");
             window.location.href = "mailto:kianindeed@email.com?subject=" + subject + "&body=" + emailBody;
         });
     </script>
     <script>
-    // New Vue.js instance with custom delimiters
-    var app = new Vue({
-        el: '#app',
-        delimiters: ['[[', ']]'], // Custom delimiters to avoid conflict with Flask
-        data: {
-            // Assuming `flashcards` is the JSON data passed from Flask
-            flashcards: {{ flashcards | tojson | safe }}
-        }
-    });
-    </script>
+        new Vue({
+            el: '#app',
+            delimiters: ['[[', ']]'],
+            data: {
+                // mcqs will be populated from the Flask context
+                QnAs: {{ QnAs | tojson | safe }}
+            }
+        });
+        </script>
 </body>
 </html>
-
-
