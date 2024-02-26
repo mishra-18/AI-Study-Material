@@ -13,3 +13,8 @@ cd AI-Study-Material
 ```
 pip install -r requirements.txt
 ```
+
+* Run the app
+```
+flask run
+```
