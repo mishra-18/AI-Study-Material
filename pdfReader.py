@@ -1,5 +1,4 @@
 from PyPDF2 import PdfReader
-import google.generativeai as genai
 import openai
 import time
 def extract_text_from_pdf(file_path):
@@ -11,11 +10,11 @@ def extract_text_from_pdf(file_path):
     return text
 
 
-openai.api_key = "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"
+openai.api_key = "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"
 
 
 def FlashCards(pdf, resourceType=1, depth=10):
-    text = extract_text_from_pdf(pdf)[:10000]
+    text = extract_text_from_pdf(pdf)[:1200]
 
 
     if resourceType == 1:
@@ -28,7 +27,7 @@ def FlashCards(pdf, resourceType=1, depth=10):
                 2nd Point \
                 3rd Point \
                 4th Point \
-                NOTE: Create 10 more of such, also make sure no flash card should exceed 250 words"},
+                NOTE: Create 10 more of such, also make sure no flash card SHOULD 'NOT' exceed 250 words"},
 
             {"role": "user", "content": text }
             ]
@@ -44,7 +43,7 @@ def FlashCards(pdf, resourceType=1, depth=10):
                 2nd Point \
                 3rd Point \
                 4th Point \
-                NOTE: Create 10 more of such, also make sure no flash card should NOT exceed 250 words. NOTE: Make sure you only include 3 - 4 important Point, one's that someone \
+                NOTE: Create 10 more of such, also make sure no flash card should NOT exceed 200 words. NOTE: Make sure you only include 3 - 4 important Point, one's that someone \
                 would want to look a night before exam"},
 
             {"role": "user", "content": text }
@@ -62,7 +61,13 @@ def FlashCards(pdf, resourceType=1, depth=10):
     for i, card in enumerate(text):
         if (i + 1)%2 == 0:
             lines = card.strip().split('\n')
-            list_items = [line[2:] for line in lines if line]
+            int_list = ["1", "2", "3", "4", "5", "6", "7", "8", "9"]
+            list_items = [] 
+            for line in lines:
+                if line and line[0] in int_list:
+                    list_items.append(line[2:])
+                elif line :
+                    list_items.append(line)
             fc["content"] = list_items
             print(fc)
             flashcards.append(fc)
@@ -80,7 +85,7 @@ def FlashCards(pdf, resourceType=1, depth=10):
     return flashcards
 # FlashCards(pdf="kebo101.pdf")
 def Quiz(pdf):
-    text = extract_text_from_pdf(pdf)[:10000]
+    text = extract_text_from_pdf(pdf)[:12000]
     
     quiz = openai.ChatCompletion.create(
         model="gpt-3.5-turbo",
@@ -131,7 +136,7 @@ def Quiz(pdf):
 
 # Quiz(pdf="kesp108.pdf")
 def QuestionBank(pdf, resourceType):
-    text = extract_text_from_pdf(pdf)[:10000]
+    text = extract_text_from_pdf(pdf)[:12000]
     
     if resourceType == 1:
         print("W")
