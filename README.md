@@ -14,6 +14,8 @@ cd AI-Study-Material
 pip install -r requirements.txt
 ```
 
+**If the current API key in ```pdfReadr``` .py doesn't work, replace ```openai.api_key``` with you API KEY.
+
 * Run the app
 ```
 flask run
