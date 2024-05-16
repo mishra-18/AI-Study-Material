@@ -1,6 +1,11 @@
 from PyPDF2 import PdfReader
 import openai
 import time
+import os
+from dotenv import load_dotenv
+# Loading .env
+load_dotenv()
+openai.api_key = os.getenv("OPENAI_API_KEY")
 def extract_text_from_pdf(file_path):
     reader = PdfReader(file_path)
     text = ""
@@ -9,8 +14,7 @@ def extract_text_from_pdf(file_path):
         text += page.extract_text() + "\n"
     return text
 
-# Replace this with your OpenAi API key if it doesn't work
-openai.api_key = "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"
+
 
 
 def FlashCards(pdf, resourceType=1, depth=10):

@@ -9,13 +9,16 @@ Please Follow this Documentation for the project: [Google Docs](https://docs.goo
 git clone https://github.com/mishra-18/AI-Study-Material.git
 cd AI-Study-Material
 ```
+
+* Creating your own venv suggested
+```
+python -m venv myenv
+source ./myenv/bin/activate
+```
 * Install the requirements
 ```
 pip install -r requirements.txt
 ```
-
-**If the current API key in ***pdfReader.py*** doesn't work, replace ```openai.api_key``` with you API KEY.**
-
 * Run the app
 ```
 flask run
